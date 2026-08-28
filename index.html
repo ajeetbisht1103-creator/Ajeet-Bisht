@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Based Animation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Canvas -->
+    <div class="canvas-container">
+        <canvas id="hero-lightpass"></canvas>
+    </div>
+    
+    <!-- Dim overlay to improve text visibility against bright animation -->
+    <div class="dark-overlay"></div>
+
+    <!-- UI Overlay -->
+    <main class="ui-overlay">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="logo"><span class="logo-bracket">&lt;</span>AJEET<span class="logo-accent">.DEV</span><span class="logo-bracket"> /&gt;</span></div>
+            <ul class="nav-links">
+                <li class="active"><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="mailto:ajeetbisht1103@gmail.com" class="btn-primary nav-btn">Get in Touch <span class="arrow">↗</span></a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <!-- Background Giant Text -->
+            <h1 class="giant-bg-text">Ajeet<span class="transparent-text">Bisht</span></h1>
+            
+            <div class="hero-content">
+                <div class="hero-left">
+                    <p class="subtitle">B.Tech CSE Student @ Lovely Professional University</p>
+                    <div class="bottom-stats">
+                        <div class="hero-actions">
+                            <a href="https://github.com/ajeetbisht1103-creator" class="btn-primary" target="_blank">GitHub Profile <span class="arrow">↗</span></a>
+                            <a href="https://www.youtube.com/@CodeWithAjeet_1" class="btn-text" target="_blank">YouTube Channel <span class="arrow-down">↘</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="glass-card">
+                        <p class="satisfaction-text"><strong>100+</strong> DSA Problems Solved<br><strong>200+</strong> Organic YouTube Views</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Section -->
+        <section id="skills" class="marquee-section">
+            <div class="marquee-content">
+                <span>DATA STRUCTURES & ALGORITHMS <span class="star-icon">✦</span> PYTHON & C++ <span class="star-icon">✦</span> COMPUTER VISION <span class="star-icon">✦</span> IOT SYSTEMS <span class="star-icon">✦</span> YOUTUBE TUTORIALS <span class="star-icon">✦</span> OPENCV & MEDIAPIPE <span class="star-icon">✦</span> SQL & DATABASES <span class="star-icon">✦</span></span>
+                <!-- Duplicate for infinite scroll -->
+                <span>DATA STRUCTURES & ALGORITHMS <span class="star-icon">✦</span> PYTHON & C++ <span class="star-icon">✦</span> COMPUTER VISION <span class="star-icon">✦</span> IOT SYSTEMS <span class="star-icon">✦</span> YOUTUBE TUTORIALS <span class="star-icon">✦</span> OPENCV & MEDIAPIPE <span class="star-icon">✦</span> SQL & DATABASES <span class="star-icon">✦</span></span>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-container">
+                <div class="about-header">
+                    <span class="star-icon">✦</span> About Me
+                    <div class="line"></div>
+                </div>
+                <div class="about-text">
+                    <p>I’m Ajeet Bisht — a Computer Science Engineering student focused on building functional software, scalable applications, and clean backend logic. Working primarily with Python, C++, and SQL, I solve complex programming problems and document my engineering journey through technical tutorials on YouTube.</p>
+                    <div class="hero-actions">
+                        <a href="https://github.com/ajeetbisht1103-creator" class="btn-primary" target="_blank">GitHub Profile <span class="arrow">↗</span></a>
+                        <a href="https://www.youtube.com/@CodeWithAjeet_1" class="btn-text" target="_blank">YouTube Channel <span class="arrow-down">↘</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="projects-header">
+                <span class="star-icon">✦</span> Selected Works
+                <div class="line"></div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="code-preview-block">
+                        <div class="mac-header">
+                            <div class="mac-dots">
+                                <span class="mac-dot red"></span>
+                                <span class="mac-dot yellow"></span>
+                                <span class="mac-dot green"></span>
+                            </div>
+                            <span class="file-name">gesture_control.py</span>
+                        </div>
+                        <div class="code-content">
+<pre><code><span class="kw">import</span> cv2, mediapipe
+hands = <span class="var">mp.solutions.hands</span>
+<span class="kw">if</span> results.multi_hand_landmarks:
+  <span class="func">map_gesture</span>(landmarks)</code></pre>
+                        </div>
+                        <div class="tech-stack-pills">
+                            <span class="pill">Python</span>
+                            <span class="pill">OpenCV</span>
+                            <span class="pill">MediaPipe</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Virtual Steering Wheel</h3>
+                        <p>Real-time computer vision system built with OpenCV & MediaPipe for gesture recognition.</p>
+                        <a href="https://github.com/ajeetbisht1103-creator/Virtual-Steering-Wheel.git" class="btn-glass" target="_blank">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="code-preview-block">
+                        <div class="mac-header">
+                            <div class="mac-dots">
+                                <span class="mac-dot red"></span>
+                                <span class="mac-dot yellow"></span>
+                                <span class="mac-dot green"></span>
+                            </div>
+                            <span class="file-name">radar_stream.cpp</span>
+                        </div>
+                        <div class="code-content">
+<pre><code><span class="str">[ESP32-CAM]</span>
+  ├── <span class="var">Camera Stream</span>
+  └── <span class="str">[Ultrasonic Sensor]</span>
+        └── <span class="var">Radar Data</span></code></pre>
+                        </div>
+                        <div class="tech-stack-pills">
+                            <span class="pill">ESP32-CAM</span>
+                            <span class="pill">C++</span>
+                            <span class="pill">IoT Radar</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Automated Object Monitoring System</h3>
+                        <p>IoT prototype using ESP32-CAM and ultrasonic sensors for radar-style presence detection.</p>
+                        <a href="https://github.com/ajeetbisht1103-creator" class="btn-glass" target="_blank">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="code-preview-block">
+                        <div class="mac-header">
+                            <div class="mac-dots">
+                                <span class="mac-dot red"></span>
+                                <span class="mac-dot yellow"></span>
+                                <span class="mac-dot green"></span>
+                            </div>
+                            <span class="file-name">database.json</span>
+                        </div>
+                        <div class="code-content">
+<pre><code>{
+  <span class="str">"students"</span>: [{
+    <span class="str">"id"</span>: <span class="str">"CS101"</span>,
+    <span class="str">"action"</span>: <span class="str">"CREATE"</span>
+  }]
+}</code></pre>
+                        </div>
+                        <div class="tech-stack-pills">
+                            <span class="pill">Python</span>
+                            <span class="pill">JSON</span>
+                            <span class="pill">CRUD</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Student Management System</h3>
+                        <p>Desktop CRUD application built in Python using persistent JSON storage.</p>
+                        <a href="https://github.com/ajeetbisht1103-creator/Student-Management-System.git" class="btn-glass" target="_blank">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="testimonials-section">
+            <div class="projects-header">
+                <span class="star-icon">✦</span> Certifications & Achievements
+                <div class="line"></div>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <h3 style="margin-top:0; font-family: 'Oswald', sans-serif;">Anthropic — AI Fluency</h3>
+                    <p class="testimonial-text">Framework & Foundations (Mar 2026)</p>
+                </div>
+                <div class="testimonial-card">
+                    <h3 style="margin-top:0; font-family: 'Oswald', sans-serif;">Infosys Certification</h3>
+                    <p class="testimonial-text">Programming Fundamentals using Python & Cloud Computing</p>
+                </div>
+                <div class="testimonial-card">
+                    <h3 style="margin-top:0; font-family: 'Oswald', sans-serif;">100+ DSA Problems</h3>
+                    <p class="testimonial-text">Solved across C++ and Java.</p>
+                </div>
+                <div class="testimonial-card">
+                    <h3 style="margin-top:0; font-family: 'Oswald', sans-serif;">YouTube Tech Creator</h3>
+                    <p class="testimonial-text">200+ organic views teaching Python.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer id="contact" class="footer">
+            <div class="footer-content">
+                <div class="footer-logo"><span class="logo-bracket">&lt;</span>AJEET<span class="logo-accent">.DEV</span><span class="logo-bracket"> /&gt;</span></div>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/ajeetbisht11/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/ajeetbisht1103-creator" target="_blank">GitHub</a>
+                    <a href="https://www.youtube.com/@CodeWithAjeet_1" target="_blank">YouTube</a>
+                    <a href="mailto:ajeetbisht1103@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ajeet Bisht. All rights reserved.</p>
+                <p>Designed with passion.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

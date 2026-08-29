@@ -3,10 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scroll Based Animation</title>
+    <title>Ajeet Bisht | Portfolio</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Interactive Preloader Screen -->
+    <div id="preloader" class="preloader-overlay">
+        <div class="preloader-content">
+            <div class="preloader-logo-wrapper">
+                <img src="logo.jpg" alt="Ajeet Bisht Logo" class="preloader-logo">
+            </div>
+            
+            <div class="preloader-info-row">
+                <span class="preloader-status" id="preloader-status">INITIALIZING SYSTEM</span>
+                <span class="progress-percent" id="preloader-percent">0%</span>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="preloader-progress"></div>
+            </div>
+
+            <div class="preloader-footer">
+                <span class="preloader-tag">AJEET BISHT &bull; PORTFOLIO 2026</span>
+                <button id="preloader-skip-btn" class="preloader-skip-btn" style="display: none;">
+                    Skip Intro <span class="arrow-small">&rarr;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Background Canvas -->
     <div class="canvas-container">
         <canvas id="hero-lightpass"></canvas>
@@ -19,7 +45,9 @@
     <main class="ui-overlay">
         <!-- Navigation -->
         <nav class="navbar">
-            <div class="logo"><span class="logo-bracket">&lt;</span>AJEET<span class="logo-accent">.DEV</span><span class="logo-bracket"> /&gt;</span></div>
+            <a href="#" class="logo-link">
+                <img src="logo.jpg" alt="Ajeet Bisht Logo" class="brand-logo">
+            </a>
             <ul class="nav-links">
                 <li class="active"><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -205,7 +233,9 @@ hands = <span class="var">mp.solutions.hands</span>
         <!-- Footer Section -->
         <footer id="contact" class="footer">
             <div class="footer-content">
-                <div class="footer-logo"><span class="logo-bracket">&lt;</span>AJEET<span class="logo-accent">.DEV</span><span class="logo-bracket"> /&gt;</span></div>
+                <a href="#" class="logo-link">
+                    <img src="logo.jpg" alt="Ajeet Bisht Logo" class="brand-logo footer-brand-logo">
+                </a>
                 <div class="footer-links">
                     <a href="https://www.linkedin.com/in/ajeetbisht11/" target="_blank">LinkedIn</a>
                     <a href="https://github.com/ajeetbisht1103-creator" target="_blank">GitHub</a>

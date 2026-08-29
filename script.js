@@ -2,24 +2,6 @@ const html = document.documentElement;
 const canvas = document.getElementById("hero-lightpass");
 const context = canvas.getContext("2d");
 
-const frameCount = 240;
-const currentFrame = index => (
-  `frames/frames_24fps/frame_${(index + 1).toString().padStart(6, '0')}.png`
-);
-
-const images = [];
-
-// Preload all images
-const preloadImages = () => {
-  for (let i = 0; i < frameCount; i++) {
-    const img = new Image();
-    img.src = currentFrame(i);
-    images.push(img);
-  }
-};
-
-preloadImages();
-
 // Helper function to scale and center the image to cover the canvas
 function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
     if (arguments.length === 2) {
@@ -63,20 +45,133 @@ function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
     ctx.drawImage(img, cx, cy, cw, ch, x, y, w, h);
 }
 
-// Render the initial frame when it loads
-const firstImg = images[0];
-firstImg.onload = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    drawImageProp(context, firstImg, 0, 0, canvas.width, canvas.height);
-};
+const frameCount = 240;
+const currentFrame = index => (
+  `frames/frames_24fps/frame_${(index + 1).toString().padStart(6, '0')}.png`
+);
+
+const images = [];
+for (let i = 0; i < frameCount; i++) {
+  images.push(new Image());
+}
+
+// Preloader UI elements
+const preloaderEl = document.getElementById("preloader");
+const progressBarEl = document.getElementById("preloader-progress");
+const percentEl = document.getElementById("preloader-percent");
+const statusEl = document.getElementById("preloader-status");
+const skipBtnEl = document.getElementById("preloader-skip-btn");
+
+let loadedFrames = 0;
+let isPreloaderDismissed = false;
+
+function dismissPreloader() {
+    if (isPreloaderDismissed) return;
+    isPreloaderDismissed = true;
+    
+    if (statusEl) statusEl.textContent = "Welcome to my portfolio!";
+    if (percentEl) percentEl.textContent = "100%";
+    if (progressBarEl) progressBarEl.style.width = "100%";
+    
+    setTimeout(() => {
+        if (preloaderEl) {
+            preloaderEl.classList.add("fade-out");
+            setTimeout(() => {
+                preloaderEl.style.display = "none";
+            }, 800);
+        }
+    }, 400);
+}
+
+if (skipBtnEl) {
+    skipBtnEl.addEventListener("click", dismissPreloader);
+}
+
+function updatePreloaderUI() {
+    loadedFrames++;
+    const progress = Math.min(100, Math.round((loadedFrames / frameCount) * 100));
+    
+    if (progressBarEl) progressBarEl.style.width = `${progress}%`;
+    if (percentEl) percentEl.textContent = `${progress}%`;
+    
+    if (statusEl) {
+        if (progress < 25) {
+            statusEl.textContent = "INITIALIZING ASSETS";
+        } else if (progress < 60) {
+            statusEl.textContent = "PRE-CACHING 3D SEQUENCE";
+        } else if (progress < 90) {
+            statusEl.textContent = "FINALIZING BUFFER";
+        } else {
+            statusEl.textContent = "SYSTEM READY";
+        }
+    }
+
+    // Show skip button early if user doesn't want to wait
+    if (progress >= 30 && skipBtnEl && skipBtnEl.style.display === "none") {
+        skipBtnEl.style.display = "inline-flex";
+    }
+
+    if (loadedFrames >= frameCount) {
+        dismissPreloader();
+    }
+}
+
+// Preload all frames using concurrent queue for fast loading
+const CONCURRENCY = 6;
+let nextFrameToLoad = 0;
+
+function loadNextInQueue() {
+    if (nextFrameToLoad >= frameCount) return;
+    const index = nextFrameToLoad++;
+    const img = images[index];
+    
+    img.onload = () => {
+        if (index === 0) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drawImageProp(context, images[0], 0, 0, canvas.width, canvas.height);
+        }
+        updatePreloaderUI();
+        loadNextInQueue();
+    };
+    
+    img.onerror = () => {
+        updatePreloaderUI();
+        loadNextInQueue();
+    };
+
+    img.src = currentFrame(index);
+}
+
+// Start concurrent loader pool
+for (let c = 0; c < CONCURRENCY; c++) {
+    loadNextInQueue();
+}
+
+// Fallback timer: Dismiss preloader after max 5 seconds if connection is slow
+setTimeout(() => {
+    if (!isPreloaderDismissed) {
+        dismissPreloader();
+    }
+}, 5000);
+
+let currentRenderIndex = 0;
 
 const updateImage = index => {
-  if(images[index].complete) {
-    drawImageProp(context, images[index], 0, 0, canvas.width, canvas.height);
+  currentRenderIndex = index;
+  const img = images[index];
+  if (!img.src) {
+    img.src = currentFrame(index);
+  }
+  
+  if (img.complete && img.naturalWidth !== 0) {
+    drawImageProp(context, img, 0, 0, canvas.width, canvas.height);
   } else {
-    images[index].onload = () => {
-      drawImageProp(context, images[index], 0, 0, canvas.width, canvas.height);
+    img.onload = () => {
+      // Only draw if we haven't scrolled past this frame
+      if (currentRenderIndex === index) {
+        drawImageProp(context, img, 0, 0, canvas.width, canvas.height);
+      }
     };
   }
 };
@@ -92,9 +187,7 @@ window.addEventListener('scroll', () => {
     Math.floor(scrollFraction * frameCount)
   );
   
-  if (images[frameIndex] && images[frameIndex].complete) {
-      requestAnimationFrame(() => updateImage(frameIndex));
-  }
+  requestAnimationFrame(() => updateImage(frameIndex));
 });
 
 window.addEventListener('resize', () => {
@@ -112,8 +205,5 @@ window.addEventListener('resize', () => {
       Math.floor(scrollFraction * frameCount)
     );
     
-    // Need to check if complete because we are resizing, it should be
-    if(images[frameIndex].complete) {
-        drawImageProp(context, images[frameIndex], 0, 0, canvas.width, canvas.height);
-    }
+    requestAnimationFrame(() => updateImage(frameIndex));
 });
